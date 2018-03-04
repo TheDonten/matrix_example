@@ -105,39 +105,33 @@ matrix_t matrix_t::operator*(matrix_t const& other) const {
 }
 
 matrix_t& matrix_t::operator-=(matrix_t const& other) {
-	
-	if (this->rows_ == other.rows_ && this->collumns_ == other.collumns_) {
-		for (std::size_t  i = 0; i < this->rows_; i++) {
-			for (std::size_t j = 0; j < this->collumns_; j++) {
-				this->elements_[i][j] -= other.elements_[i][j];
-			}
-		}
-	}
-	else {
-		std::cout << " An error has occured while reading input data";
-		
-	}
-	return *this;
+  if (this->rows_ == other.rows_ && this->collumns_ == other.collumns_) {
+    for (std::size_t i = 0; i < this->rows_; i++) {
+      for (std::size_t j = 0; j < this->collumns_; j++) {
+        this->elements_[i][j] -= other.elements_[i][j];
+      }
+    }
+  } else {
+    std::cout << " An error has occured while reading input data";
+  }
+  return *this;
 }
 
 matrix_t& matrix_t::operator+=(matrix_t const& other) {
-  
-	if (this->rows_ == other.rows_ && this->collumns_ == other.collumns_) {
-		for (std::size_t  i = 0; i < this->rows_; i++) {
-			for (std::size_t j = 0; j < this->collumns_; j++) {
-				this->elements_[i][j] += other.elements_[i][j];
-			}
-		}
-	}
-	else {
-		std::cout << " An error has occured while reading input data";
-		
-	}
-	return *this;
+  if (this->rows_ == other.rows_ && this->collumns_ == other.collumns_) {
+    for (std::size_t i = 0; i < this->rows_; i++) {
+      for (std::size_t j = 0; j < this->collumns_; j++) {
+        this->elements_[i][j] += other.elements_[i][j];
+      }
+    }
+  } else {
+    std::cout << " An error has occured while reading input data";
+  }
+  return *this;
 }
 
 matrix_t& matrix_t::operator*=(matrix_t const& other) {
-   matrix_t result;
+  matrix_t result;
   if (this->collumns_ == other.rows_) {
     result.rows_ = this->rows;
     result.collumns_ = this->collumns;
