@@ -42,7 +42,7 @@ TEST_CASE("add matrix")
         "2 2 2\n"
         "2 2 2\n"
         "2 2 2" };
-    std::string strokar{
+    std::string stroka3{
         "3, 3\n"
         "3 3 3\n"
         "3 3 3\n"
@@ -60,7 +60,7 @@ TEST_CASE("add matrix")
     std::ostringstream ostream;
     result.write( ostream );
     
-    REQUIRE( strokar == ostream.str() );
+    REQUIRE( stroka3 == ostream.str() );
 }
 
 TEST_CASE("sub matrix")
@@ -75,7 +75,7 @@ TEST_CASE("sub matrix")
         "1 1 1\n"
         "1 1 1\n"
         "1 1 1" };
-    std::string strokar{
+    std::string stroka3{
         "3, 3\n"
         "4 4 4\n"
         "4 4 4\n"
@@ -93,7 +93,7 @@ TEST_CASE("sub matrix")
     std::ostringstream ostream;
     result.write( ostream );
     
-    REQUIRE( strokar == ostream.str() );
+    REQUIRE( stroka3 == ostream.str() );
 }
 
 TEST_CASE("mul matrix")
@@ -108,7 +108,7 @@ TEST_CASE("mul matrix")
         "2 2 2\n"
         "2 2 2\n"
         "2 2 2" };
-    std::string strokar{
+    std::string stroka3{
          "3, 3\n"
         "6 6 6\n"
         "6 6 6\n"
@@ -126,7 +126,7 @@ TEST_CASE("mul matrix")
     std::ostringstream ostream;
     result.write( ostream );
     
-    REQUIRE( strokar == ostream.str() );
+    REQUIRE( stroka3 == ostream.str() );
 }
 
 TEST_CASE("selfsub matrix")
@@ -141,7 +141,7 @@ TEST_CASE("selfsub matrix")
         "1 1 1\n"
         "1 1 1\n"
         "1 1 1" };
-    std::string strokar{
+    std::string stroka3{
          "3, 3\n"
         "4 4 4\n"
         "4 4 4\n"
@@ -159,7 +159,7 @@ TEST_CASE("selfsub matrix")
     std::ostringstream ostream;
     matrix1.write( ostream );
     
-    REQUIRE( strokar == ostream.str() );
+    REQUIRE( stroka3 == ostream.str() );
 }
 
 TEST_CASE("selfadd matrix")
@@ -174,7 +174,7 @@ TEST_CASE("selfadd matrix")
         "2 2 2\n"
         "2 2 2\n"
         "2 2 2" };
-    std::string strokar{
+    std::string stroka3{
       "3, 3\n"
         "3 3 3\n"
         "3 3 3\n"
@@ -192,7 +192,7 @@ TEST_CASE("selfadd matrix")
     std::ostringstream ostream;
     matrix1.write( ostream );
     
-    REQUIRE( strokar == ostream.str() );
+    REQUIRE( stroka3 == ostream.str() );
 }
 
 TEST_CASE("selfmul matrix")
@@ -207,7 +207,7 @@ TEST_CASE("selfmul matrix")
         "2 2 2\n"
         "2 2 2\n"
         "2 2 2" };
-    std::string strokar{
+    std::string stroka3{
        "3, 3\n"
         "6 6 6\n"
         "6 6 6\n"
@@ -225,5 +225,5 @@ TEST_CASE("selfmul matrix")
     std::ostringstream ostream;
     matrix1.write( ostream );
     
-    REQUIRE( strokar == ostream.str() );
+    REQUIRE( stroka3 == ostream.str() );
 }
