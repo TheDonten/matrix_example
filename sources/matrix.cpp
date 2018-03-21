@@ -4,7 +4,7 @@ matrix_t<T>::matrix_t() : elements_{ nullptr }, rows_{ 0 }, collumns_{ 0 }
 {
 }
 template <typename T>
-matrix_t<T>::matrix_t<T>(matrix_t const & other)
+matrix_t<T>::matrix_t(matrix_t const & other)
 {
 	rows_ = other.rows_;
 	collumns_ = other.collumns_;
