@@ -152,7 +152,7 @@ matrix_t<T> & matrix_t<T>::operator -=(matrix_t<T> const & other)
 	return *this;
 }
 template <typename T>
-matrix_t & matrix_t::operator +=(matrix_t<T> const & other)
+matrix_t<T> & matrix_t<T>::operator +=(matrix_t<T> const & other)
 {
 	if (rows_ == other.rows_ && collumns_ == other.collumns_) {
 		for (std::size_t i = 0; i<rows_; i++) {
