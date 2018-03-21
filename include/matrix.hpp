@@ -1,7 +1,7 @@
 #include <iostream>
 
-template <typename T>
-class matrix_t {
+
+template <typename T> class matrix_t {
 private:
 	T ** elements_;
 	std::size_t rows_;
