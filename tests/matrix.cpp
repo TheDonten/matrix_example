@@ -288,7 +288,7 @@ std::string stroka1{
     REQUIRE_THROWS_AS(matrix1 * matrix2, std::invalid_argument);
 }
 
-TEST_CASE("selfadd matrix")
+TEST_CASE("Check selfadd matrix")
 {
     std::string stroka1{
         "3, 2\n"
