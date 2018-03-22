@@ -204,9 +204,9 @@ matrix_t<T> & matrix_t<T>::operator *=(matrix_t const & other)
 		
 		result.rows_ = rows_;
 		result.collumns_ = other.collumns_;
-                result.elements_ = new float *[rows_];
+                result.elements_ = new T *[rows_];
 		for (std::size_t i = 0; i < rows_; ++i) {
-			result.elements_[i] = new float[other.collumns_];
+			result.elements_[i] = new T[other.collumns_];
 			for (std::size_t j = 0; j < other.collumns_; ++j) {
                           size_t result_ = 0;
 				for (std::size_t k = 0; k < other.rows_; ++k) {
