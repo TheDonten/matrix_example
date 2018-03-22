@@ -107,7 +107,7 @@ matrix_t<T> matrix_t<T>::operator +(matrix_t const & other) const
 		}
 	}
 	else {
-		std::cout << "An error has occured while reading input data\n";
+		throw std::invalid_argument("rows and collumns != other.rows and other.collumns");
 	}
 
 	return result;
