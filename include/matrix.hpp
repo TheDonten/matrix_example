@@ -174,7 +174,7 @@ matrix_t<T> & matrix_t<T>::operator -=(matrix_t const & other)
 		}
 	}
 	else {
-		std::cout << "An error has occured while reading input data\n";
+		throw std::invalid_argument("rows and collumns != other.rows and other.collumns");
 	}
 
 	return *this;
@@ -190,7 +190,7 @@ matrix_t<T> & matrix_t<T>::operator +=(matrix_t const & other)
 		}
 	}
 	else {
-		std::cout << "An error has occured while reading input data\n";
+		throw std::invalid_argument("rows and collumns != other.rows and other.collumns");
 	}
 
 	return *this;
@@ -218,7 +218,7 @@ matrix_t<T> & matrix_t<T>::operator *=(matrix_t const & other)
 		*this = result;
 	}
 	else {
-		std::cout << "An error has occured while reading input data\n";
+		throw std::invalid_argument("collumns != other.rows");
 	}
 
 	return *this;
