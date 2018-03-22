@@ -380,38 +380,6 @@ TEST_CASE("selfmul matrix float") {
   REQUIRE(stroka3 == ostream.str());
 }
 
-TEST_CASE("selfadd matrix int") {
-  std::string stroka1{
-      "3, 3\n"
-      "1 1 1\n"
-      "1 1 1\n"
-      "1 1 1"};
-  std::string stroka2{
-      "3, 3\n"
-      "2 2 2\n"
-      "2 2 2\n"
-      "2 2 2"};
-  std::string stroka3{
-      "3, 3\n"
-      "3 3 3\n"
-      "3 3 3\n"
-      "3 3 3"};
-
-  matrix_t<int> matrix1, matrix2;
-  std::istringstream istream1{stroka1};
-  std::istringstream istream2{stroka2};
-
-  matrix1.read(istream1);
-  matrix2.read(istream2);
-
-  matrix1 += matrix2;
-
-  std::ostringstream ostream;
-  matrix1.write(ostream);
-
-  REQUIRE(stroka3 == ostream.str());
-}
-
 TEST_CASE("Check add matrix") {
   std::string stroka1{
       "3,3\n"
