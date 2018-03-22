@@ -45,7 +45,7 @@ matrix_t<T>::matrix_t(matrix_t const & other)
 	}
 }
 template <typename T>
-matrix_t<T> & matrix_t<T>::operator =(matrix_t<T> const & other)
+matrix_t<T> & matrix_t<T>::operator =(matrix_t const & other)
 {
 	if (this != &other) {
 			for (std::size_t i = 0; i < rows_; ++i) {
