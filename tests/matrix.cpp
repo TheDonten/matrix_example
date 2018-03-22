@@ -60,8 +60,6 @@ TEST_CASE("add matrix") {
   REQUIRE(stroka3 == ostream.str());
 }
 
-
-
 TEST_CASE("sub matrix") {
   std::string stroka1{
       "3, 3\n"
@@ -93,8 +91,6 @@ TEST_CASE("sub matrix") {
 
   REQUIRE(stroka3 == ostream.str());
 }
-
-
 
 TEST_CASE("mul matrix") {
   std::string stroka1{
@@ -128,8 +124,6 @@ TEST_CASE("mul matrix") {
   REQUIRE(stroka3 == ostream.str());
 }
 
-
-
 TEST_CASE("selfsub matrix") {
   std::string stroka1{
       "3, 3\n"
@@ -161,8 +155,6 @@ TEST_CASE("selfsub matrix") {
 
   REQUIRE(stroka3 == ostream.str());
 }
-
-
 
 TEST_CASE("selfadd matrix") {
   std::string stroka1{
@@ -196,7 +188,6 @@ TEST_CASE("selfadd matrix") {
   REQUIRE(stroka3 == ostream.str());
 }
 
-
 TEST_CASE("selfmul matrix") {
   std::string stroka1{
       "3, 3\n"
@@ -228,7 +219,6 @@ TEST_CASE("selfmul matrix") {
 
   REQUIRE(stroka3 == ostream.str());
 }
-
 
 TEST_CASE("Check add matrix") {
   std::string stroka1{
@@ -345,4 +335,3 @@ TEST_CASE("Check selfmul matrix") {
   matrix2.read(istream2);
   REQUIRE_THROWS_AS(matrix1 *= matrix2, std::invalid_argument);
 }
-
