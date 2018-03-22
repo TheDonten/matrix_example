@@ -232,7 +232,7 @@ std::istream & matrix_t<T>::read(std::istream & stream)
 
 	bool success = true;
 	if (stream >> rows && stream >> symbol && symbol == ',' && stream >> collumns) {
-		float ** elements = new T *[rows];
+		T ** elements = new T *[rows];
 		for (std::size_t i = 0; success && i < rows; ++i) {
 			elements[i] = new T[collumns];
 			for (std::size_t j = 0; j < collumns; ++j) {
