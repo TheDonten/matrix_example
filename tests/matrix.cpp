@@ -270,9 +270,11 @@ std::string stroka1{
 
 TEST_CASE("Check mul matrix"){
 std::string stroka1{
-  "2,3\n"
-  "1 1 1\n"
-  "1 1 1"};
+  "4,4\n"
+  "1 1 1 1\n"
+  "1 1 1 1\n"
+  "1 1 1 1\n"
+  "1 1 1 1"};
     std::string stroka2{
       "3, 2\n"
         "2 2 \n"
