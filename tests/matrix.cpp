@@ -287,3 +287,27 @@ std::string stroka1{
     matrix2.read( istream2 );
     REQUIRE_THROWS_AS(matrix1 * matrix2, std::invalid_argument);
 }
+
+TEST_CASE("selfadd matrix")
+{
+    std::string stroka1{
+        "3, 2\n"
+        "1 1 \n"
+        "1 1 \n"
+        "1 1 " };
+    std::string stroka2{
+         "3, 3\n"
+        "2 2 2\n"
+        "2 2 2\n"
+        "2 2 2" };
+    
+    
+    matrix_t<float> matrix1, matrix2;   
+    std::istringstream istream1{ stroka1 };
+    std::istringstream istream2{ stroka2 };
+    
+    matrix1.read( istream1 );
+    matrix2.read( istream2 );
+    REQUIRE_THROWS_AS(matrix1 += matrix2, std::invalid_argument);
+  
+}
