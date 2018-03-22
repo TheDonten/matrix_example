@@ -28,7 +28,7 @@ TEST_CASE("reading matrix") {
   REQUIRE(input == ostream.str());
 }
 
-TEST_CASE("add matrix") {
+TEST_CASE("add matrix float") {
   std::string stroka1{
       "3, 3\n"
       "1 1 1\n"
@@ -60,7 +60,39 @@ TEST_CASE("add matrix") {
   REQUIRE(stroka3 == ostream.str());
 }
 
-TEST_CASE("sub matrix") {
+TEST_CASE("add matrix int") {
+  std::string stroka1{
+      "3, 3\n"
+      "1 1 1\n"
+      "1 1 1\n"
+      "1 1 1"};
+  std::string stroka2{
+      "3, 3\n"
+      "2 2 2\n"
+      "2 2 2\n"
+      "2 2 2"};
+  std::string stroka3{
+      "3, 3\n"
+      "3 3 3\n"
+      "3 3 3\n"
+      "3 3 3"};
+
+  matrix_t<int> matrix1, matrix2, result;
+  std::istringstream istream1{stroka1};
+  std::istringstream istream2{stroka2};
+
+  matrix1.read(istream1);
+  matrix2.read(istream2);
+
+  result = matrix1 + matrix2;
+
+  std::ostringstream ostream;
+  result.write(ostream);
+
+  REQUIRE(stroka3 == ostream.str());
+}
+
+TEST_CASE("sub matrix float") {
   std::string stroka1{
       "3, 3\n"
       "5 5 5\n"
@@ -92,7 +124,39 @@ TEST_CASE("sub matrix") {
   REQUIRE(stroka3 == ostream.str());
 }
 
-TEST_CASE("mul matrix") {
+TEST_CASE("sub matrix int") {
+  std::string stroka1{
+      "3, 3\n"
+      "5 5 5\n"
+      "5 5 5\n"
+      "5 5 5"};
+  std::string stroka2{
+      "3, 3\n"
+      "1 1 1\n"
+      "1 1 1\n"
+      "1 1 1"};
+  std::string stroka3{
+      "3, 3\n"
+      "4 4 4\n"
+      "4 4 4\n"
+      "4 4 4"};
+
+  matrix_t<int> matrix1, matrix2, result;
+  std::istringstream istream1{stroka1};
+  std::istringstream istream2{stroka2};
+
+  matrix1.read(istream1);
+  matrix2.read(istream2);
+
+  result = matrix1 - matrix2;
+
+  std::ostringstream ostream;
+  result.write(ostream);
+
+  REQUIRE(stroka3 == ostream.str());
+}
+
+TEST_CASE("mul matrix float") {
   std::string stroka1{
       "3, 3\n"
       "1 1 1\n"
@@ -124,7 +188,39 @@ TEST_CASE("mul matrix") {
   REQUIRE(stroka3 == ostream.str());
 }
 
-TEST_CASE("selfsub matrix") {
+TEST_CASE("mul matrix int") {
+  std::string stroka1{
+      "3, 3\n"
+      "1 1 1\n"
+      "1 1 1\n"
+      "1 1 1"};
+  std::string stroka2{
+      "3, 3\n"
+      "2 2 2\n"
+      "2 2 2\n"
+      "2 2 2"};
+  std::string stroka3{
+      "3, 3\n"
+      "6 6 6\n"
+      "6 6 6\n"
+      "6 6 6"};
+
+  matrix_t<int> matrix1, matrix2, result;
+  std::istringstream istream1{stroka1};
+  std::istringstream istream2{stroka2};
+
+  matrix1.read(istream1);
+  matrix2.read(istream2);
+
+  result = matrix1 * matrix2;
+
+  std::ostringstream ostream;
+  result.write(ostream);
+
+  REQUIRE(stroka3 == ostream.str());
+}
+
+TEST_CASE("selfsub matrix float") {
   std::string stroka1{
       "3, 3\n"
       "5 5 5\n"
@@ -156,7 +252,39 @@ TEST_CASE("selfsub matrix") {
   REQUIRE(stroka3 == ostream.str());
 }
 
-TEST_CASE("selfadd matrix") {
+TEST_CASE("selfsub matrix int ") {
+  std::string stroka1{
+      "3, 3\n"
+      "5 5 5\n"
+      "5 5 5\n"
+      "5 5 5"};
+  std::string stroka2{
+      "3, 3\n"
+      "1 1 1\n"
+      "1 1 1\n"
+      "1 1 1"};
+  std::string stroka3{
+      "3, 3\n"
+      "4 4 4\n"
+      "4 4 4\n"
+      "4 4 4"};
+
+  matrix_t<int> matrix1, matrix2;
+  std::istringstream istream1{stroka1};
+  std::istringstream istream2{stroka2};
+
+  matrix1.read(istream1);
+  matrix2.read(istream2);
+
+  matrix1 -= matrix2;
+
+  std::ostringstream ostream;
+  matrix1.write(ostream);
+
+  REQUIRE(stroka3 == ostream.str());
+}
+
+TEST_CASE("selfadd matrix float") {
   std::string stroka1{
       "3, 3\n"
       "1 1 1\n"
@@ -188,7 +316,39 @@ TEST_CASE("selfadd matrix") {
   REQUIRE(stroka3 == ostream.str());
 }
 
-TEST_CASE("selfmul matrix") {
+TEST_CASE("selfadd matrix int") {
+  std::string stroka1{
+      "3, 3\n"
+      "1 1 1\n"
+      "1 1 1\n"
+      "1 1 1"};
+  std::string stroka2{
+      "3, 3\n"
+      "2 2 2\n"
+      "2 2 2\n"
+      "2 2 2"};
+  std::string stroka3{
+      "3, 3\n"
+      "3 3 3\n"
+      "3 3 3\n"
+      "3 3 3"};
+
+  matrix_t<int> matrix1, matrix2;
+  std::istringstream istream1{stroka1};
+  std::istringstream istream2{stroka2};
+
+  matrix1.read(istream1);
+  matrix2.read(istream2);
+
+  matrix1 += matrix2;
+
+  std::ostringstream ostream;
+  matrix1.write(ostream);
+
+  REQUIRE(stroka3 == ostream.str());
+}
+
+TEST_CASE("selfmul matrix float") {
   std::string stroka1{
       "3, 3\n"
       "1 1 1\n"
@@ -213,6 +373,38 @@ TEST_CASE("selfmul matrix") {
   matrix2.read(istream2);
 
   matrix1 *= matrix2;
+
+  std::ostringstream ostream;
+  matrix1.write(ostream);
+
+  REQUIRE(stroka3 == ostream.str());
+}
+
+TEST_CASE("selfadd matrix int") {
+  std::string stroka1{
+      "3, 3\n"
+      "1 1 1\n"
+      "1 1 1\n"
+      "1 1 1"};
+  std::string stroka2{
+      "3, 3\n"
+      "2 2 2\n"
+      "2 2 2\n"
+      "2 2 2"};
+  std::string stroka3{
+      "3, 3\n"
+      "3 3 3\n"
+      "3 3 3\n"
+      "3 3 3"};
+
+  matrix_t<int> matrix1, matrix2;
+  std::istringstream istream1{stroka1};
+  std::istringstream istream2{stroka2};
+
+  matrix1.read(istream1);
+  matrix2.read(istream2);
+
+  matrix1 += matrix2;
 
   std::ostringstream ostream;
   matrix1.write(ostream);
