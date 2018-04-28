@@ -10,8 +10,8 @@ REQUIRE(sp1.get() == nullptr);
 TEST_CASE("get"){
 scoped_ptr<int> sp1(new int(2));
 scoped_ptr<int> sp2(new int(3));
-int ptr1 = sp1.get();
-int ptr2 = sp2.get(); 
+int* ptr1 = sp1.get();
+int* ptr2 = sp2.get(); 
 REQUIRE(*ptr1 == 2);
 REQUIRE(*ptr2 == 3);
 }
@@ -31,5 +31,5 @@ REQUIRE(*sp1 == 6);
 TEST_CASE("ptr->"){
 scoped_ptr<Mypair> sp1(new Mypair(4,5));
 REQUIRE(sp1->first == 4);
-REQUIRE(sp2->second == 5);
+REQUIRE(sp1->second == 5);
 }
