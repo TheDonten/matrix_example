@@ -21,6 +21,6 @@ class scoped_ptr {
   T* get() const { return ptr_; }
   T& operator*() const { return *ptr_; }
   T* operator->() const { return ptr_; }
-  void swap(scoped_ptr& other) { swap(ptr_, other.ptr_); }
+  void swap(scoped_ptr& other) { std::swap(ptr_, other.ptr_); }
 };
 typedef std::pair<int, int> Mypair;
