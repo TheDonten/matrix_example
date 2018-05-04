@@ -21,16 +21,16 @@ tree.insert(8);
 tree.insert(9);
 tree.insert(10);
 std::string out{
- "------------10R/n"
- "---------9B/n"
- "------8R/n"
- "---------7B/n"
- "---6B/n"
- "------5B/n"
- "4B/n"
- "------3B/n"
- "---2B/n"
- "------1B/n"
+ "------------10R\n"
+ "---------9B\n"
+ "------8R\n"
+ "---------7B\n"
+ "---6B\n"
+ "------5B\n"
+ "4B\n"
+ "------3B\n"
+ "---2B\n"
+ "------1B\n"
 };
 std::ostringstream stream;
 tree.print(stream, 0, tree.root());
