@@ -1,11 +1,12 @@
 #include<iostream>
+template <typename T>
 class RBT {
 private:
     struct node_t {
         node_t* parent;
         node_t* left;
         node_t* right;
-        int value;
+        T value;
         bool color;  // черный это false, true - красный.
     };
 
@@ -29,7 +30,7 @@ public:
         else
             return g->left;
     }
-    void insert(int value) {
+    void insert(T value) {
         node_t* node = new node_t;
         node->value = value;
         node->right = nullptr;
