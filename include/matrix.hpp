@@ -1,289 +1,80 @@
 #include <iostream>
+#include <sstream>
+#include <vector>
 
 
-template <typename T> class matrix_t {
-private:
-	T ** elements_;
-	std::size_t rows_;
-	std::size_t collumns_;
-public:
-	matrix_t();
-	matrix_t( matrix_t const & other );
-	matrix_t & operator =( matrix_t const & other );
-	~matrix_t();
+class vertex_t {
+ private:
+  unsigned vertex;
+  bool** pole;
 
-	std::size_t rows() const;
-	std::size_t collumns() const;
+ public:
+  vertex_t() {
+    vertex = 0;
+    pole = nullptr;
+  }
+  vertex_t(unsigned number) : vertex_t() {
+    vertex = number;
+    pole = new bool*[vertex];
+    for (std::size_t i = 0; i < vertex; i++) {
+      pole[i] = new bool[vertex];
+    }
+  }
 
-	matrix_t operator +( matrix_t const & other ) const;
-	matrix_t operator -( matrix_t const & other ) const;
-	matrix_t operator *( matrix_t const & other ) const;
+  std::vector<unsigned> what_vertex(int index) {
+    std::vector<unsigned> used, res;
+    for (std::size_t i = 0; i < vertex; i++) {
+      used.push_back(false);
+    }
+    how_vertex(index, used, res);
+    return res;
+  }
 
-	matrix_t & operator -=( matrix_t const & other );
-	matrix_t & operator +=( matrix_t const & other );
-	matrix_t & operator *=( matrix_t const & other );
+  void how_vertex(int index,
+                  std::vector<unsigned>& used,
+                  std::vector<unsigned>& res) {
+    used[index] = true;
+    res.push_back(index + 1);
+    for (std::size_t i = 0; i < vertex; i++) {
+      if (pole[index][i]) {
+        if (!(used[i])) {
+          how_vertex(i, used, res);
+        }
+      }
+    }
+  }
+  void print_res(std::ostream& ostream, std::vector<unsigned> res) {
+    for (unsigned i : res) {
+      ostream << i << ' ';
+    }
+  }
 
-	std::istream & read( std::istream & stream );
-	std::ostream & write( std::ostream  & stream ) const;
+  void read(std::istringstream& stream) {
+    for (std::size_t i = 0; i < vertex; i++) {
+      for (std::size_t j = 0; j < vertex; j++) {
+        stream >> pole[i][j];
+      }
+    }
+  }
+  ~vertex_t() {
+    for (std::size_t i = 0; i < vertex; ++i) {
+      delete[] pole[i];
+    }
+    delete[] pole;
+  }
 };
 
-template <typename T>
-matrix_t<T>::matrix_t() : elements_{ nullptr }, rows_{ 0 }, collumns_{ 0 }
-{
-}
-template <typename T>
-matrix_t<T>::matrix_t(matrix_t const & other)
-{
-	rows_ = other.rows_;
-	collumns_ = other.collumns_;
-	elements_ = new T *[rows_];
-	for (std::size_t i = 0; i < rows_; ++i) {
-		elements_[i] = new T[this->collumns_];
-		for (std::size_t j = 0; j < collumns_; ++j) {
-			elements_[i][j] = other.elements_[i][j];
-		}
-	}
-}
-template <typename T>
-matrix_t<T> & matrix_t<T>::operator =(matrix_t const & other)
-{
-	if (this != &other) {
-			for (std::size_t i = 0; i < rows_; ++i) {
-				delete[] elements_[i];
-			}
-			delete[] elements_;
+int main() {
+  std::string input{
+      "0 1 0\n"
+      "0 0 1\n"
+      "0 0 0"};
+  vertex_t v(3);
+  std::istringstream istream{input};
+  v.read(istream);
 
-			rows_ = other.rows_;
-			collumns_ = other.collumns_;
-			elements_ = new T *[rows_];
-			for (std::size_t i = 0; i < rows_; ++i) {
-				elements_[i] = new T[collumns_];
-			}
-			for (std::size_t i = 0; i < rows_; ++i) {
-				for (std::size_t j = 0; j < collumns_; ++j) {
-					elements_[i][j] = other.elements_[i][j];
-				}
-			}
-		}
-
-	return *this;
-}
-template <typename T>
-matrix_t<T>::~matrix_t()
-{
-	for (size_t i = 0; i < this->rows_; i++)
-	{
-		delete[] this->elements_[i];
-	}
-	delete[] this->elements_;
-	collumns_ = 0;
-	rows_ = 0;
-}
-template <typename T>
-std::size_t matrix_t<T>::rows() const
-{
-	return rows_;
-}
-template <typename T>
-std::size_t matrix_t<T>::collumns() const
-{
-	return collumns_;
-}
-template <typename T>
-matrix_t<T> matrix_t<T>::operator +(matrix_t const & other) const
-{
-	matrix_t<T> result;
-
-	if (rows_ == other.rows_ && collumns_ == other.collumns_) {
-		
-		result.rows_ = rows_;
-		result.collumns_ = collumns_;
-                result.elements_ = new T *[rows_];
-		for (std::size_t i = 0; i<rows_; i++) {
-			result.elements_[i] = new T[collumns_];
-			for (std::size_t j = 0; j<collumns_; j++) {
-				result.elements_[i][j] = elements_[i][j] + other.elements_[i][j];
-			}
-		}
-	}
-	else {
-		throw std::invalid_argument("rows and collumns != other.rows and other.collumns");
-	}
-
-	return result;
-}
-template <typename T>
-matrix_t<T> matrix_t<T>::operator -(matrix_t const & other) const
-{
-	matrix_t<T> result;
-
-	if (rows_ == other.rows_ && collumns_ == other.collumns_) {
-		
-		result.rows_ = rows_;
-		result.collumns_ = collumns_;
-                result.elements_ = new T *[rows_];
-		for (std::size_t i = 0; i<rows_; i++) {
-			result.elements_[i] = new T[collumns_];
-			for (std::size_t j = 0; j<collumns_; j++) {
-				result.elements_[i][j] = elements_[i][j] - other.elements_[i][j];
-			}
-		}
-	}
-	else {
-		throw std::invalid_argument("rows and collumns != other.rows and other.collumns");
-	}
-
-	return result;
-}
-template <typename T>
-matrix_t<T> matrix_t<T>::operator *(matrix_t const & other) const
-{
-	matrix_t<T> result;
-
-	if (collumns_ == other.rows_) {
-		
-		result.rows_ = rows_;
-		result.collumns_ = other.collumns_;
-                result.elements_ = new T *[rows_];
-		for (std::size_t i = 0; i < rows_; ++i) {
-			 result.elements_ [i] = new T[other.collumns_];
-			
-			for (std::size_t j = 0; j < other.collumns_; ++j) {
-				size_t result_ = 0;
-				for (std::size_t k = 0; k < other.rows_; ++k) {
-					result_ += elements_[i][k] * other.elements_[k][j];
-				}
-				result.elements_[i][j] = result_;
-			}
-		}
-	}
-	else {
-		throw std::invalid_argument("collumns != other.rows");
-	}
-
-	return result;
-}
-template <typename T>
-matrix_t<T> & matrix_t<T>::operator -=(matrix_t const & other)
-{
-	if (rows_ == other.rows_ && collumns_ == other.collumns_) {
-		for (std::size_t i = 0; i<rows_; i++) {
-			for (std::size_t j = 0; j<collumns_; j++) {
-				elements_[i][j] -= other.elements_[i][j];
-			}
-		}
-	}
-	else {
-		throw std::invalid_argument("rows and collumns != other.rows and other.collumns");
-	}
-
-	return *this;
-}
-template <typename T>
-matrix_t<T> & matrix_t<T>::operator +=(matrix_t const & other)
-{
-	if (rows_ == other.rows_ && collumns_ == other.collumns_) {
-		for (std::size_t i = 0; i<rows_; i++) {
-			for (std::size_t j = 0; j<collumns_; j++) {
-				elements_[i][j] += other.elements_[i][j];
-			}
-		}
-	}
-	else {
-		throw std::invalid_argument("rows and collumns != other.rows and other.collumns");
-	}
-
-	return *this;
-}
-template <typename T>
-matrix_t<T> & matrix_t<T>::operator *=(matrix_t const & other)
-{
-	matrix_t result;
-
-	if (collumns_ == other.rows_) {
-		
-		result.rows_ = rows_;
-		result.collumns_ = other.collumns_;
-                result.elements_ = new T *[rows_];
-		for (std::size_t i = 0; i < rows_; ++i) {
-			result.elements_[i] = new T[other.collumns_];
-			for (std::size_t j = 0; j < other.collumns_; ++j) {
-                          size_t result_ = 0;
-				for (std::size_t k = 0; k < other.rows_; ++k) {
-					result_ += elements_[i][k] * other.elements_[k][j];
-				}
-				result.elements_[i][j] = result_;
-			}
-		}
-		*this = result;
-	}
-	else {
-		throw std::invalid_argument("collumns != other.rows");
-	}
-
-	return *this;
-}
-template <typename T>
-std::istream & matrix_t<T>::read(std::istream & stream)
-{
-	std::size_t rows;
-	std::size_t collumns;
-	char symbol;
-
-	bool success = true;
-	if (stream >> rows && stream >> symbol && symbol == ',' && stream >> collumns) {
-		T ** elements = new T *[rows];
-		for (std::size_t i = 0; success && i < rows; ++i) {
-			elements[i] = new T[collumns];
-			for (std::size_t j = 0; j < collumns; ++j) {
-				if (!(stream >> elements[i][j])) {
-					success = false;
-					break;
-				}
-			}
-		}
-
-		if (success) {
-			for (std::size_t i = 0; i < rows_; ++i) {
-				delete[] elements_[i];
-			}
-			delete[] elements_;
-
-			rows_ = rows;
-			collumns_ = collumns;
-			elements_ = elements;
-		}
-		else {
-			for (std::size_t i = 0; i < rows; ++i) {
-				delete[] elements[i];
-			}
-			delete[] elements;
-		}
-	}
-	else {
-		success = false;
-	}
-
-	if (!success) {
-		stream.setstate(std::ios_base::failbit);
-	}
-
-	return stream;
-}
-template <typename T>
-std::ostream & matrix_t<T>::write(std::ostream & stream) const
-{
-	stream << rows_ << ", " << collumns_;
-	for (std::size_t i = 0; i < rows_; ++i) {
-		stream << '\n';
-		for (std::size_t j = 0; j < collumns_; ++j) {
-			stream << elements_[i][j];
-			if (j != collumns_ - 1) {
-				stream << ' ';
-			}
-		}
-	}
-	if (collumns_ != rows_) stream << '\n';
-
-	return stream;
+  std::vector<unsigned> result;
+  result = v.what_vertex(0);
+  std::ostringstream output;
+  v.print_res(output, result);
 }
