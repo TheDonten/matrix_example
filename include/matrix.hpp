@@ -2,11 +2,23 @@
 #include <sstream>
 #include <vector>
 
-
 class vertex_t {
  private:
   unsigned vertex;
   bool** pole;
+  void how_vertex(int index,
+                  std::vector<unsigned>& used,
+                  std::vector<unsigned>& res) {
+    used[index] = true;
+    res.push_back(index + 1);
+    for (std::size_t i = 0; i < vertex; i++) {
+      if (pole[index][i]) {
+        if (!(used[i])) {
+          how_vertex(i, used, res);
+        }
+      }
+    }
+  }
 
  public:
   vertex_t() {
@@ -30,19 +42,6 @@ class vertex_t {
     return res;
   }
 
-  void how_vertex(int index,
-                  std::vector<unsigned>& used,
-                  std::vector<unsigned>& res) {
-    used[index] = true;
-    res.push_back(index + 1);
-    for (std::size_t i = 0; i < vertex; i++) {
-      if (pole[index][i]) {
-        if (!(used[i])) {
-          how_vertex(i, used, res);
-        }
-      }
-    }
-  }
   void print_res(std::ostream& ostream, std::vector<unsigned> res) {
     for (unsigned i : res) {
       ostream << i << ' ';
@@ -63,18 +62,3 @@ class vertex_t {
     delete[] pole;
   }
 };
-
-int main() {
-  std::string input{
-      "0 1 0\n"
-      "0 0 1\n"
-      "0 0 0"};
-  vertex_t v(3);
-  std::istringstream istream{input};
-  v.read(istream);
-
-  std::vector<unsigned> result;
-  result = v.what_vertex(0);
-  std::ostringstream output;
-  v.print_res(output, result);
-}
