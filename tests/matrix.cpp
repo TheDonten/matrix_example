@@ -16,7 +16,7 @@ TEST_CASE("graph"){
   result =  v.what_vertex(0);
   std::ostringstream ostream;
   v.print_res(ostream,result);
-  std::string res_out = "1 2 3";
+  std::string res_out = "1 2 3 ";
   REQUIRE(ostream.str() == res_out);
   
 }
