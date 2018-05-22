@@ -281,7 +281,9 @@ public:
             }
             else if(vetka->right && vetka->left) {
                 node_t *child = choose_left_child(vetka);
+                swap_child_parent(vetka,child);
                 delete_one_child(vetka,vetka->right);
+                delete_case1(child);
             }
         }
         else return false;
