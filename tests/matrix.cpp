@@ -25,10 +25,10 @@ TEST_CASE("elements can be inserted in rb tree"){
           tree.insert( 55 );
           
          std::string out{
-      "---------90R\n"
+"---------90R\n"
 "------85B\n"
 "---------80R\n"
-"---70Bn"
+"---70B\n"
 "---------65B\n"
 "------60R\n"
 "------------55R\n"
@@ -54,6 +54,7 @@ TEST_CASE("elements can be removde from rb tree") {
   tree.insert(3);
   tree.insert(4);
   tree.insert(5);
+  tree.insert(2);
   tree.remove(2);
   std::string out{
       "------5B\n"
