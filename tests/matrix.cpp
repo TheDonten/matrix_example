@@ -136,7 +136,8 @@ TEST_CASE("when brother is black and his right son is red") {
   std::ostringstream stream2;
   tree.print(stream, 0, tree.root());
   REQUIRE(stream.str() == out);
-  std::string out1{
+ tree.remove(2);
+  std::string out2 {
       "------------11R\n"
       "---------10B\n"
       "------------9R\n"
@@ -147,9 +148,11 @@ TEST_CASE("when brother is black and his right son is red") {
       "---4B\n"
       "------1B\n"
       "------------0R\n"};
-  tree.remove(2);
+  
   tree.print(stream2, 0, tree.root());
-  REQUIRE(stream2.str() == out1);
+  
+  REQUIRE(stream2.str() == out2);
+  
 }
 TEST_CASE("when brother is red") {
   RBT<int> tree;
