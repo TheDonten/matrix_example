@@ -66,7 +66,7 @@ TEST_CASE("elements can be removde from rb tree") {
   tree.print(stream, 0, tree.root());
   REQUIRE(stream.str() == out);
 }
-TEST_CASE("elements can be removed from rb tree ", "[remove, bug]") {
+TEST_CASE("when brother is black and his sons") {
   RBT<int> tree;
   tree.insert(1);
   tree.insert(2);
@@ -104,4 +104,49 @@ TEST_CASE("elements can be removed from rb tree ", "[remove, bug]") {
   tree.remove(9);
   tree.print(stream2, 0, tree.root());
   REQUIRE(stream2.str() == out2);
+}
+TEST_CASE("when brother is black and his right son is red"){
+   RBT<int> tree;  
+  tree.insert( 1 );
+			tree.insert( 2 );
+			tree.insert( 3 );
+			tree.insert( 4 );
+			tree.insert( 5 );
+			tree.insert( 6 );
+			tree.insert( 7 );
+			tree.insert( 8 );
+			tree.insert( 9 );
+			tree.insert( 10 );
+			tree.insert( 11 );
+			tree.insert( 0 );
+			tree.remove( 3 );
+   std::string out{
+      "------------11R\n"
+      "---------10B\n"
+      "------------9R\n"
+      "------8R\n"
+      "---------7B\n"
+      "---6B\n"
+      "------5B\n"
+      "4B\n"
+      "---2B\n"
+      "------1B\n"
+      "---------0R\n"};
+    std::ostringstream stream;
+    std::ostringstream stream2;
+    tree.print(stream, 0, tree.root());
+    REQUIRE(stream.str() == out);
+   std::string out1{
+      "------------11R\n"
+      "---------10B\n"
+      "------------9R\n"
+      "---8R\n"
+      "------7B\n"
+      "6B\n"
+      "------5B\n"
+      "---4B\n"
+      "------1B\n"
+      "------------0R\n"};
+   tree.print(stream2, 0, tree.root());
+    REQUIRE(stream2.str() == out1);
 }
