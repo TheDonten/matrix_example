@@ -7,41 +7,41 @@ TEST_CASE("creating rb tree") {
   REQUIRE(tree.root() == nullptr);
 }
 
-TEST_CASE("elements can be inserted in rb tree"){
- RBT<int> tree;
- tree.insert( 10 );
- tree.insert( 85 );
-          tree.insert( 15 );
-          tree.insert( 70 );
-          tree.insert( 20 );
-          tree.insert( 60 );
-          tree.insert( 30 );
-          tree.insert( 50 );
-          tree.insert( 65 );
-          tree.insert( 80 );
-          tree.insert( 90 );
-          tree.insert( 40 );
-          tree.insert( 5 );
-          tree.insert( 55 );
-          
-         std::string out{
-"---------90R\n"
-"------85B\n"
-"---------80R\n"
-"---70B\n"
-"---------65B\n"
-"------60R\n"
-"------------55R\n"
-"---------50B\n"
-"------------40R\n"
-"30B\n"
-"------20B\n"
-"---15B\n"
-"------10B\n"
-"---------5R\n"}; 
-          std::ostringstream stream;
-          tree.print(stream, 0, tree.root());
-          REQUIRE(stream.str() == out);
+TEST_CASE("elements can be inserted in rb tree") {
+  RBT<int> tree;
+  tree.insert(10);
+  tree.insert(85);
+  tree.insert(15);
+  tree.insert(70);
+  tree.insert(20);
+  tree.insert(60);
+  tree.insert(30);
+  tree.insert(50);
+  tree.insert(65);
+  tree.insert(80);
+  tree.insert(90);
+  tree.insert(40);
+  tree.insert(5);
+  tree.insert(55);
+
+  std::string out{
+      "---------90R\n"
+      "------85B\n"
+      "---------80R\n"
+      "---70B\n"
+      "---------65B\n"
+      "------60R\n"
+      "------------55R\n"
+      "---------50B\n"
+      "------------40R\n"
+      "30B\n"
+      "------20B\n"
+      "---15B\n"
+      "------10B\n"
+      "---------5R\n"};
+  std::ostringstream stream;
+  tree.print(stream, 0, tree.root());
+  REQUIRE(stream.str() == out);
 }
 
 TEST_CASE("elements can be removde from rb tree") {
@@ -105,22 +105,22 @@ TEST_CASE("when brother is black and his sons") {
   tree.print(stream2, 0, tree.root());
   REQUIRE(stream2.str() == out2);
 }
-TEST_CASE("when brother is black and his right son is red"){
-   RBT<int> tree;  
-  tree.insert( 1 );
-			tree.insert( 2 );
-			tree.insert( 3 );
-			tree.insert( 4 );
-			tree.insert( 5 );
-			tree.insert( 6 );
-			tree.insert( 7 );
-			tree.insert( 8 );
-			tree.insert( 9 );
-			tree.insert( 10 );
-			tree.insert( 11 );
-			tree.insert( 0 );
-			tree.remove( 3 );
-   std::string out{
+TEST_CASE("when brother is black and his right son is red") {
+  RBT<int> tree;
+  tree.insert(1);
+  tree.insert(2);
+  tree.insert(3);
+  tree.insert(4);
+  tree.insert(5);
+  tree.insert(6);
+  tree.insert(7);
+  tree.insert(8);
+  tree.insert(9);
+  tree.insert(10);
+  tree.insert(11);
+  tree.insert(0);
+  tree.remove(3);
+  std::string out{
       "------------11R\n"
       "---------10B\n"
       "------------9R\n"
@@ -132,11 +132,11 @@ TEST_CASE("when brother is black and his right son is red"){
       "---2B\n"
       "------1B\n"
       "---------0R\n"};
-    std::ostringstream stream;
-    std::ostringstream stream2;
-    tree.print(stream, 0, tree.root());
-    REQUIRE(stream.str() == out);
-   std::string out1{
+  std::ostringstream stream;
+  std::ostringstream stream2;
+  tree.print(stream, 0, tree.root());
+  REQUIRE(stream.str() == out);
+  std::string out1{
       "------------11R\n"
       "---------10B\n"
       "------------9R\n"
@@ -147,6 +147,68 @@ TEST_CASE("when brother is black and his right son is red"){
       "---4B\n"
       "------1B\n"
       "------------0R\n"};
-   tree.print(stream2, 0, tree.root());
-    REQUIRE(stream2.str() == out1);
+  tree.remove(2);
+  tree.print(stream2, 0, tree.root());
+  REQUIRE(stream2.str() == out1);
+}
+TEST_CASE("when brother is red") {
+  RBT<int> tree;
+  tree.insert(1);
+  tree.insert(2);
+  tree.insert(3);
+  tree.insert(4);
+  tree.insert(5);
+  tree.insert(6);
+  tree.insert(7);
+  tree.insert(8);
+  tree.insert(9);
+  tree.insert(10);
+  tree.insert(11);
+  tree.insert(0);
+  tree.remove(3);
+  tree.insert(5);
+  tree.insert(5);
+  tree.insert(5);
+  tree.insert(5);
+  tree.insert(5);
+  std::string out{
+      "------------11R\n"
+      "---------10B\n"
+      "------------9R\n"
+      "------8B\n"
+      "---------7B\n"
+      "---6R\n"
+      "---------------5R\n"
+      "------------5B\n"
+      "---------5R\n"
+      "------------5B\n"
+      "------5B\n"
+      "---------5B\n"
+      "4B\n"
+      "---2B\n"
+      "------1B\n"
+      "---------0R\n"};
+  std::ostringstream stream;
+  std::ostringstream stream2;
+  tree.print(stream, 0, tree.root());
+  REQUIRE(stream.str() == out);
+  std::string out1{
+      "---------11R\n"
+      "------10B\n"
+      "---------9R\n"
+      "---8B\n"
+      "------7B\n"
+      "6B\n"
+      "------------5R\n"
+      "---------5B\n"
+      "------5B\n"
+      "---------5B\n"
+      "---5R\n"
+      "---------5B\n"
+      "------4B\n"
+      "---------1B\n"
+      "------------0R\n"};
+  tree.remove(2);
+  tree.print(stream2, 0, tree.root());
+  REQUIRE(stream2.str() == out1);
 }
