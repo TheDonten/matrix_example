@@ -157,19 +157,41 @@ public:
     }
     void replace_node(node_t* node, node_t* child){
         node_t* g = grandparent(child);
+        node_t* node_child2;
+        if(child->left) node_child2 = child->left;
+        else node_child2 = child->right;
         child->parent = g;
         if(g) {
             if(g->left == node) g->left = child;
             else g->right = child;
         }
         else root_ = child;
-        if(node->right == child) {child->right = node;
-        node->right = nullptr;
+        if(node->right == child) {
+            if(node_child2){
+                child->right = node_child2;
+                node_child2->parent = child;
+                node_child2->right = node;
+                node->parent = node_child2;
+                node->right = nullptr;
+            }
+        
+        else
+            { child->right = node;
+              node->right = nullptr;
+              node->parent = child;}
         }
-        else {child->left = node;
+        else { if(node_child2){
+            child->left = node_child2;
+            node_child2->parent = child;
+            node_child2->left = node;
+            node->parent = node_child2;
+            node->left = nullptr;
+        }
+           else{ child->left = node;
          node->left = nullptr;
+                node->parent = child;}
         }
-        node->parent = child;
+
 
 
     }
@@ -375,94 +397,6 @@ public:
 
 };
 
-/*int main() {
-    int value;
 
-    RBT<int> sp1;
-    sp1.insert(10);
-    sp1.insert(12);
-    sp1.remove(10);
-   /* sp1.insert(85);
-    sp1.insert(15);
-    sp1.insert(70);
-    sp1.insert(20);
-    sp1.insert(60);
-    sp1.insert(30);
-    sp1.insert(50);
-    sp1.insert(65);
-    sp1.insert(80);
-    sp1.insert(90);
-    sp1.insert(40);
-    sp1.insert(5);
-    sp1.insert(55);*/
-    /*sp1.insert(1);
-    sp1.insert(2);
-    sp1.insert(3);
-    sp1.insert(4);
-    sp1.insert(5);
-    sp1.insert(6);
-    sp1.insert(7);
-    sp1.insert(8);
-    sp1.insert(9);
-    sp1.insert(10);
-
-    sp1.insert(11);
-    sp1.insert(0);
-     sp1.remove(3);
-     sp1.remove(2);*/
-   /* for (unsigned int i = 0; i < 11; i++) {
-        std::cin>>value;
-        sp1.insert(value);
-
-        std:: cout<<std::endl;
-        std::   cout<<std::endl;
-
-    }*/
-     //sp1.print(std::cout, 0, sp1.root());
-    //sp1.remove(17);
-    /*sp1.insert(1);
-    sp1.insert(2);
-    sp1.insert(6);
-    sp1.insert(8);
-    sp1.insert(9);
-    sp1.insert(7);
-    sp1.insert(4);
-    sp1.insert(4);
-    sp1.insert(2);
-    sp1.insert(4);
-    sp1.insert(4);
-
-    sp1.remove(4);
-    sp1.remove(4);
-    sp1.remove(4);
-    sp1.remove(4);
-    sp1.remove(8);
-    sp1.remove(9);*/
-   /*sp1.insert(1);
-    sp1.insert(2);
-    sp1.insert(3);
-    sp1.insert(4);
-    sp1.insert(5);
-    sp1.insert(6);
-    sp1.insert(7);
-    sp1.insert(8);
-    sp1.insert(9);
-    sp1.insert(10);
-    sp1.insert(11);
-    sp1.insert(0);
-   sp1.remove(3);
-    sp1.insert(5);
-    sp1.insert(5);
-    sp1.insert(5);
-    sp1.insert(5);
-    sp1.insert(5);
-    sp1.remove(2);*/
-    /*sp1.insert(2);
-    sp1.insert(1);
-    sp1.insert(3);
-    sp1.insert(4);
-    sp1.insert(5);
-    sp1.insert(2);
-    sp1.remove(2);
-    sp1.print(std::cout, 0, sp1.root());
-}*/
+    
+  
