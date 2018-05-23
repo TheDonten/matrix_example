@@ -40,7 +40,7 @@ TEST_CASE("elements can be inserted in rb tree", "[insert]""){
 "------10B\n"
 "---------5R\n"}; 
           std::ostringstream stream;
-          tree.print(stream, 0, tree1.root());
+          tree.print(stream, 0, tree.root());
           REQUIRE(stream.str() == out);
 }
           
@@ -56,8 +56,12 @@ TEST_CASE("elements can be removde from rb tree", "[remove]"){
 	tree.insert( 5 );
   tree.remove( 2 );
   std::string out{
-      "------7\n"
-      "---6\n"
-      "5\n"
-      "---4\n"};
+      "------5B\n"
+      "---4R\n"
+      "------3B\n"
+      "2B\n"
+      "---1B\n"};
+	  std::ostringstream stream;
+          tree.print(stream, 0, tree.root());
+          REQUIRE(stream.str() == out);
 }
