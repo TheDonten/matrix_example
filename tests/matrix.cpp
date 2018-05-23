@@ -43,65 +43,64 @@ TEST_CASE("elements can be inserted in rb tree", "[insert]""){
           tree.print(stream, 0, tree.root());
           REQUIRE(stream.str() == out);
 }
-          
-TEST_CASE("elements can be removde from rb tree", "[remove]"){
- RBT<int> tree;
-  tree.insert( 10 );
-  tree.remove( 10 );
+
+TEST_CASE("elements can be removde from rb tree", "[remove]") {
+  RBT<int> tree;
+  tree.insert(10);
+  tree.remove(10);
   REQUIRE(tree.root() == nullptr);
-  tree.insert( 2 );
-	tree.insert( 1 );
-	tree.insert( 3 );
-	tree.insert( 4 );
-	tree.insert( 5 );
-  tree.remove( 2 );
+  tree.insert(2);
+  tree.insert(1);
+  tree.insert(3);
+  tree.insert(4);
+  tree.insert(5);
+  tree.remove(2);
   std::string out{
       "------5B\n"
       "---4R\n"
       "------3B\n"
       "2B\n"
       "---1B\n"};
-	  std::ostringstream stream;
-          tree.print(stream, 0, tree.root());
-          REQUIRE(stream.str() == out);
+  std::ostringstream stream;
+  tree.print(stream, 0, tree.root());
+  REQUIRE(stream.str() == out);
 }
-TEST_CASE("elements can be removed from rb tree ", "[remove, bug]"){
-RBT<int> tree;
-tree.insert( 1 );
-			tree.insert( 2 );
-			tree.insert( 6 );
-			tree.insert( 8 );
-			tree.insert( 9 );
-			tree.insert( 7 );
-			tree.insert( 4 );
-			tree.insert( 4 );
-			tree.insert( 2 );
-			tree.insert( 4 );
-			tree.insert( 4 );
-			tree.remove( 4 );
-			tree.remove( 4 );
-			tree.remove( 4 );
-			tree.remove( 4 );
-			tree.remove( 8 );
-	  std::string out{
+TEST_CASE("elements can be removed from rb tree ", "[remove, bug]") {
+  RBT<int> tree;
+  tree.insert(1);
+  tree.insert(2);
+  tree.insert(6);
+  tree.insert(8);
+  tree.insert(9);
+  tree.insert(7);
+  tree.insert(4);
+  tree.insert(4);
+  tree.insert(2);
+  tree.insert(4);
+  tree.insert(4);
+  tree.remove(4);
+  tree.remove(4);
+  tree.remove(4);
+  tree.remove(4);
+  tree.remove(8);
+  std::string out{
       "---9B\n"
       "------7B\n"
       "6B\n"
       "------2B\n"
       "---2B\n"
       "------1B\n"};
-		  std::ostringstream stream;
-	 std::ostringstream stream2;
-                  tree.print(stream, 0, tree.root());
-	          REQUIRE(stream.str() == out);
-	 std::string out2{
-	 "---7B\n"
-         "6B\n"
-	 "------2B\n"
-	 "---2R\n"
-	 "------1B\n"
-	 }; 
-	tree.remove( 9 );
-	tree.print(stream2, 0, tree.root());
-	REQUIRE(stream2.str() == out2);
+  std::ostringstream stream;
+  std::ostringstream stream2;
+  tree.print(stream, 0, tree.root());
+  REQUIRE(stream.str() == out);
+  std::string out2{
+      "---7B\n"
+      "6B\n"
+      "------2B\n"
+      "---2R\n"
+      "------1B\n"};
+  tree.remove(9);
+  tree.print(stream2, 0, tree.root());
+  REQUIRE(stream2.str() == out2);
 }
