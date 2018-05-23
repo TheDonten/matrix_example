@@ -353,6 +353,8 @@ class RBT {
 
     } else
       return false;
+   
+   return true;
   }
   node_t* choose_left_child(node_t* node) {
     if (node->right) {
