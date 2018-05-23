@@ -141,7 +141,7 @@ TEST_CASE("when brother is black and his right son is red") {
       "---------11R\n"
       "------10B\n"
       "---------9R\n"
-      "---8R\n"
+      "---8B\n"
       "------7B\n"
       "6B\n"
       "------5B\n"
