@@ -138,16 +138,16 @@ TEST_CASE("when brother is black and his right son is red") {
   REQUIRE(stream.str() == out);
  tree.remove(2);
   std::string out2 {
-      "------------11R\n"
-      "---------10B\n"
-      "------------9R\n"
+      "---------11R\n"
+      "------10B\n"
+      "---------9R\n"
       "---8R\n"
       "------7B\n"
       "6B\n"
       "------5B\n"
       "---4B\n"
       "------1B\n"
-      "------------0R\n"};
+      "---------0R\n"};
   
   tree.print(stream2, 0, tree.root());
   
