@@ -7,7 +7,7 @@ TEST_CASE("creating rb tree") {
   REQUIRE(tree.root() == nullptr);
 }
 
-TEST_CASE("elements can be inserted in rb tree", [insert] "){
+TEST_CASE("elements can be inserted in rb tree", "[insert]" "){
  RBT<int> tree;
  tree.insert( 10 );
  tree.insert( 85 );
