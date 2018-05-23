@@ -162,6 +162,7 @@ public:
             if(g->left == node) g->left = child;
             else g->right = child;
         }
+        else root_ = child;
         if(node->right == child) {child->right = node;
         node->right = nullptr;
         }
@@ -173,6 +174,11 @@ public:
 
     }
     void free(node_t*  & node){
+        if(node == root_){
+            root_ = nullptr;
+            delete root_;
+            return;
+        }
         node_t* p = node->parent;
         node->parent = nullptr;
         if( p->left == node) {
@@ -188,7 +194,7 @@ public:
     }
     void delete_case2(node_t* node){
         node_t* s = sibling(node);
-        if(!(s)) return;
+        if(s == nullptr) return;
         if(s->color == true){
             node->parent->color = true;
             s->color = false;
@@ -201,13 +207,14 @@ public:
     }
     void delete_case3(node_t* node){
         node_t* s = sibling(node);
-          if(s->left && s->right) {
+        if(s == nullptr) return;
+        if (s->left == nullptr || s->right == nullptr) return;
               if ((node->parent->color == false) && (s->color == false) && (s->left->color == false) &&
                   (s->right->color == false)) {
                   s->color = true;
                   delete_case1(node->parent);
               } else delete_case4(node);
-          } else delete_case6(node);
+
     }
     void delete_case4(node_t* node){
         node_t* s = sibling(node);
@@ -237,12 +244,12 @@ public:
 
         s->color = node->parent->color;
         node->parent->color = false;
-        if (node == node->parent->left && s->right){
-            s->right->color = false;
+        if (node == node->parent->left){
+            if(s->right) s->right->color = false;
             rotate_left(node->parent);
         }
-        else { if(s->left) s->left->color = false;}
-        rotate_right(node->parent);
+        else { if(s->left) s->left->color = false;
+        rotate_right(node->parent);}
     }
     void delete_one_child(node_t* node,node_t* child){
         if(child) {
@@ -282,9 +289,20 @@ public:
             else if(vetka->right && vetka->left) {
                 node_t *child = choose_left_child(vetka);
                 swap_child_parent(vetka,child);
-                delete_one_child(vetka,vetka->right);
-                delete_case1(child);
+                if(vetka->right != nullptr && vetka->left == nullptr) delete_one_child(vetka,vetka->right);
+                else if(vetka->left != nullptr && vetka->right == nullptr) delete_one_child(vetka,vetka->left);
+                else if(vetka->left == nullptr && vetka->right == nullptr){
+                    delete_case1(vetka);
+                    if(vetka->color == true){
+                        if(child->right == vetka ) child->left->color = true;
+                    }
+
+                     free(vetka);
+
+                }
+                if(child == root_ && child->color == true) child->color = false;
             }
+
         }
         else return false;
     }
@@ -321,7 +339,8 @@ public:
 
 
         if(node != parent_child){
-             parent_child->left = node;
+             if(parent_child->left == child) parent_child->left = node;
+             else parent_child->right = node;
             node->parent = parent_child;
             child->right = right_child;
             right_child->parent = child;}
@@ -360,7 +379,23 @@ public:
     int value;
 
     RBT<int> sp1;
-   /* sp1.insert(1);
+    sp1.insert(10);
+    sp1.insert(12);
+    sp1.remove(10);
+   /* sp1.insert(85);
+    sp1.insert(15);
+    sp1.insert(70);
+    sp1.insert(20);
+    sp1.insert(60);
+    sp1.insert(30);
+    sp1.insert(50);
+    sp1.insert(65);
+    sp1.insert(80);
+    sp1.insert(90);
+    sp1.insert(40);
+    sp1.insert(5);
+    sp1.insert(55);*/
+    /*sp1.insert(1);
     sp1.insert(2);
     sp1.insert(3);
     sp1.insert(4);
@@ -370,6 +405,7 @@ public:
     sp1.insert(8);
     sp1.insert(9);
     sp1.insert(10);
+
     sp1.insert(11);
     sp1.insert(0);
      sp1.remove(3);
@@ -401,8 +437,8 @@ public:
     sp1.remove(4);
     sp1.remove(4);
     sp1.remove(8);
-    sp1.remove(9);
-    sp1.insert(1);
+    sp1.remove(9);*/
+   /*sp1.insert(1);
     sp1.insert(2);
     sp1.insert(3);
     sp1.insert(4);
@@ -414,12 +450,19 @@ public:
     sp1.insert(10);
     sp1.insert(11);
     sp1.insert(0);
-    sp1.remove(3);
+   sp1.remove(3);
     sp1.insert(5);
     sp1.insert(5);
     sp1.insert(5);
     sp1.insert(5);
     sp1.insert(5);
+    sp1.remove(2);*/
+    /*sp1.insert(2);
+    sp1.insert(1);
+    sp1.insert(3);
+    sp1.insert(4);
+    sp1.insert(5);
+    sp1.insert(2);
     sp1.remove(2);
     sp1.print(std::cout, 0, sp1.root());
 }*/
