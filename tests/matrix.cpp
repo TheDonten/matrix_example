@@ -7,7 +7,7 @@ TEST_CASE("creating rb tree") {
   REQUIRE(tree.root() == nullptr);
 }
 
-TEST_CASE("elements can be inserted in rb tree", "[insert]" "){
+TEST_CASE("elements can be inserted in rb tree"){
  RBT<int> tree;
  tree.insert( 10 );
  tree.insert( 85 );
@@ -44,7 +44,7 @@ TEST_CASE("elements can be inserted in rb tree", "[insert]" "){
           REQUIRE(stream.str() == out);
 }
 
-TEST_CASE("elements can be removde from rb tree", "[remove]") {
+TEST_CASE("elements can be removde from rb tree") {
   RBT<int> tree;
   tree.insert(10);
   tree.remove(10);
